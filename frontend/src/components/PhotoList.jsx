@@ -58,13 +58,16 @@ import PhotoListItem from "./PhotoListItem";
 //   },
 // ];
 
-const PhotoList = ({ photos }) => {
+const PhotoList = ({ photos, favorites, onClickFav }) => {
   const mappedPhotos = photos.map((photo) => (
     <PhotoListItem
       key={photo.id}
+      id={photo.id}
       location={photo.location}
       urls={photo.urls}
       user={photo.user}
+      favorites={favorites}
+      onClickFav={onClickFav}
     />
   ));
 
