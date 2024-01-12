@@ -58,7 +58,7 @@ import PhotoListItem from "./PhotoListItem";
 //   },
 // ];
 
-const PhotoList = ({ photos, favorites, onClickFav }) => {
+const PhotoList = ({ photos, favorites, onClickFav, onOpenModal }) => {
   const mappedPhotos = photos.map((photo) => (
     <PhotoListItem
       key={photo.id}
@@ -68,6 +68,7 @@ const PhotoList = ({ photos, favorites, onClickFav }) => {
       user={photo.user}
       favorites={favorites}
       onClickFav={onClickFav}
+      onOpenModal={onOpenModal}
     />
   ));
 

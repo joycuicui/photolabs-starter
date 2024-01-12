@@ -3,13 +3,11 @@ import "../styles/HomeRoute.scss";
 import TopNavigation from "../components/TopNavigationBar";
 import PhotoList from "../components/PhotoList";
 
-const HomeRoute = ({ topics, photos }) => {
-  // const [selected, setSelected] = useState(false);
+const HomeRoute = ({ topics, photos, onOpenModal }) => {
   const [favorites, setFavorites] = useState([]);
   const isFavPhotoExist = favorites.length > 0;
 
   const handleClickFav = (id) => {
-    // setSelected((s) => !s);
     setFavorites((prev) => {
       if (prev.includes(id)) {
         return prev.filter((photoId) => photoId !== id);
@@ -26,6 +24,7 @@ const HomeRoute = ({ topics, photos }) => {
         photos={photos}
         favorites={favorites}
         onClickFav={handleClickFav}
+        onOpenModal={onOpenModal}
       />
     </div>
   );
