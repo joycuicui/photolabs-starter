@@ -5,20 +5,21 @@ import PhotoDetailsModal from "routes/PhotoDetailsModal";
 
 const PhotoListItem = ({
   location,
-  urls,
+  url,
   user,
   id,
   favorites,
   onClickFav,
   onOpenModal,
+  modal,
 }) => {
   return (
     <div className="photo-list__item">
       <PhotoFavButton id={id} favorites={favorites} onClickFav={onClickFav} />
       <img
         onClick={onOpenModal}
-        className="photo-list__image"
-        src={urls.regular}
+        className={modal ? "photo-details-modal__image" : "photo-list__image"}
+        src={url}
         alt="image"
       />
       <div className="photo-list__user-details">

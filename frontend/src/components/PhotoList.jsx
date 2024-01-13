@@ -10,7 +10,7 @@ const PhotoList = ({ photos, favorites, onClickFav, onOpenModal }) => {
       key={photo.id}
       id={photo.id}
       location={photo.location}
-      urls={photo.urls}
+      url={photo.urls.regular}
       user={photo.user}
       favorites={favorites}
       onClickFav={onClickFav}
