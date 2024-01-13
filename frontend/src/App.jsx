@@ -7,19 +7,24 @@ import PhotoDetailsModal from "routes/PhotoDetailsModal";
 
 const App = () => {
   const [modal, setModal] = useState(false);
+  const [selected, setSelected] = useState(null);
 
-  const openModal = () => {
+  const openModal = (photo) => {
+    setSelected(photo);
     setModal(true);
   };
 
   const closeModal = () => {
+    setSelected(null);
     setModal(false);
   };
 
   return (
     <div className="App">
       <HomeRoute topics={topics} photos={photos} onOpenModal={openModal} />
-      {modal ? <PhotoDetailsModal onCloseModal={closeModal} /> : null}
+      {modal ? (
+        <PhotoDetailsModal onCloseModal={closeModal} selected={selected} />
+      ) : null}
     </div>
   );
 };
