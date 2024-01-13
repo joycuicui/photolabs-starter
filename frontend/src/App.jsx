@@ -12,10 +12,14 @@ const App = () => {
     setModal(true);
   };
 
+  const closeModal = () => {
+    setModal(false);
+  };
+
   return (
     <div className="App">
       <HomeRoute topics={topics} photos={photos} onOpenModal={openModal} />
-      {modal ? <PhotoDetailsModal /> : null}
+      {modal ? <PhotoDetailsModal onCloseModal={closeModal} /> : null}
     </div>
   );
 };
