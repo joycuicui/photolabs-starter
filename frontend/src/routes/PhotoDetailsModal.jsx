@@ -17,14 +17,13 @@ const PhotoDetailsModal = ({ onCloseModal, selected }) => {
       >
         <img src={closeSymbol} alt="close symbol" />
       </button>
-      <div className="photo-details-modal__images">
-        <PhotoListItem
-          location={selected.location}
-          url={selected.urls.full}
-          user={selected.user}
-          modal={true}
-        />
-      </div>
+      {/* <div className="photo-details-modal__images"></div> */}
+      <PhotoListItem
+        location={selected.location}
+        url={selected.urls.full}
+        user={selected.user}
+        modal={true}
+      />
 
       <div className="photo-details-modal__images">
         <div className="photo-details-modal__header">Similar Photos</div>

@@ -14,7 +14,7 @@ const PhotoListItem = ({
   modal,
 }) => {
   return (
-    <div className="photo-list__item">
+    <div className={modal ? "photo-details-modal__images" : "photo-list__item"}>
       <PhotoFavButton id={id} favorites={favorites} onClickFav={onClickFav} />
       <img
         onClick={onOpenModal}
