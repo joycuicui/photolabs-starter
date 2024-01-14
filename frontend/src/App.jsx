@@ -4,50 +4,39 @@ import HomeRoute from "./routes/HomeRoute";
 import topics from "./mocks/topics";
 import photos from "./mocks/photos";
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
+import { useApplicationData } from "./hooks/useApplicationData";
 
 const App = () => {
-  const [modal, setModal] = useState(false);
-  const [selected, setSelected] = useState(null);
+  const {
+    state,
+    updateToFavPhotoIds,
+    setPhotoSelected,
+    onClosePhotoDetailsModal,
+  } = useApplicationData();
 
-  const [favorites, setFavorites] = useState([]);
-  const isFavPhotoExist = favorites.length > 0;
+  // const openModal = (photo) => {
+  //   setSelected(photo);
+  //   setModal(true);
+  // };
 
-  const handleClickFav = (id) => {
-    setFavorites((prev) => {
-      if (prev.includes(id)) {
-        return prev.filter((photoId) => photoId !== id);
-      } else {
-        return [...prev, id];
-      }
-    });
-  };
-
-  const openModal = (photo) => {
-    setSelected(photo);
-    setModal(true);
-  };
-
-  const closeModal = () => {
-    setSelected(null);
-    setModal(false);
-  };
+  // const isFavPhotoExist = state.favorites.length > 0;
 
   return (
     <div className="App">
       <HomeRoute
         topics={topics}
         photos={photos}
-        onOpenModal={openModal}
-        favorites={favorites}
-        onClickFav={handleClickFav}
-        isFavPhotoExist={isFavPhotoExist}
+        onOpenModal={setPhotoSelected}
+        favorites={state.favorites}
+        onClickFav={updateToFavPhotoIds}
+        isFavPhotoExist={state.favorites?.length > 0}
       />
-      {modal ? (
+      {state.modal ? (
         <PhotoDetailsModal
-          onCloseModal={closeModal}
-          selected={selected}
-          favorites={favorites}
-          onClickFav={handleClickFav}
+          onCloseModal={onClosePhotoDetailsModal}
+          selected={state.selectedPhoto}
+          favorites={state.favorites}
+          onClickFav={updateToFavPhotoIds}
         />
       ) : null}
     </div>
