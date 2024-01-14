@@ -1,50 +1,82 @@
-// Our useApplicationData Hook will return an object with four keys representing the following items:
+import { useReducer, useState } from "react";
 
-import { useState } from "react";
+export const ACTIONS = {
+  UPDATE_FAVORITES: "UPDATE_FAVORITES",
+  FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
+  FAV_PHOTO_REMOVED: "FAV_PHOTO_REMOVED",
+  SET_PHOTO_DATA: "SET_PHOTO_DATA",
+  SET_TOPIC_DATA: "SET_TOPIC_DATA",
+  SELECT_PHOTO: "SELECT_PHOTO",
+  DISPLAY_PHOTO_DETAILS: "DISPLAY_PHOTO_DETAILS",
+};
 
-// The state object will contain the entire state of the application.
-// The updateToFavPhotoIds action can be used to set the favorite photos.
-// The setPhotoSelected action can be used when the user selects a photo.
-// The onClosePhotoDetailsModal action can be used to close the modal.
+function reducer(state, action) {
+  switch (action.type) {
+    case ACTIONS.UPDATE_FAVORITES:
+      const updatedFavorites = state.favorites.includes(action.id)
+        ? state.favorites.filter((photoId) => photoId !== action.id)
+        : [...state.favorites, action.id];
+      return { ...state, favorites: updatedFavorites };
+
+    case ACTIONS.SELECT_PHOTO:
+      return { ...state, selectedPhoto: action.photo, modal: true };
+
+    case ACTIONS.DISPLAY_PHOTO_DETAILS:
+      return { ...state, selectedPhoto: null, modal: false };
+
+    default:
+      throw new Error(
+        `Tried to reduce with unsupported action type: ${action.type}`
+      );
+  }
+}
 
 export function useApplicationData() {
-  const [state, setState] = useState({
+  const [state, dispatch] = useReducer(reducer, {
     modal: false,
     selectedPhoto: null,
     favorites: [],
   });
 
-  // const [modal, setModal] = useState(false);
-  // const [selected, setSelected] = useState(null);
-  // const [favorites, setFavorites] = useState([]);
-
   const updateToFavPhotoIds = (id) => {
-    setState((prev) => {
-      // if (prev.favorites?.includes(id)) {
-      //   return prev.favorites.filter((photoId) => photoId !== id);
-      // } else {
-      //   return [...prev.favorites, id];
-      // }
-      const updatedFavorites = prev.favorites.includes(id)
-        ? prev.favorites.filter((photoId) => photoId !== id)
-        : [...prev.favorites, id];
-      return { ...prev, favorites: updatedFavorites };
-    });
+    dispatch({ type: ACTIONS.UPDATE_FAVORITES, id });
   };
 
   const setPhotoSelected = (photo) => {
-    setState((prev) => {
-      return { ...prev, selectedPhoto: photo, modal: true };
-    });
+    dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
   };
 
   const onClosePhotoDetailsModal = () => {
-    // setSelected(null);
-    // setModal(false);
-    setState((prev) => {
-      return { ...prev, selectedPhoto: null, modal: false };
-    });
+    dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS });
   };
+
+  // const [state, setState] = useState({
+  //   modal: false,
+  //   selectedPhoto: null,
+  //   favorites: [],
+  // });
+
+  // const updateToFavPhotoIds = (id) => {
+  //   setState((prev) => {
+  //     const updatedFavorites = prev.favorites.includes(id)
+  //       ? prev.favorites.filter((photoId) => photoId !== id)
+  //       : [...prev.favorites, id];
+  //     return { ...prev, favorites: updatedFavorites };
+  //   });
+  // };
+
+  // const setPhotoSelected = (photo) => {
+  //   setState((prev) => {
+  //     return { ...prev, selectedPhoto: photo, modal: true };
+  //   });
+  // };
+
+  // const onClosePhotoDetailsModal = () => {
+  //   setState((prev) => {
+  //     return { ...prev, selectedPhoto: null, modal: false };
+  //   });
+  // };
+
   return {
     state,
     updateToFavPhotoIds,
