@@ -1,4 +1,4 @@
-import { useReducer, useState } from "react";
+import { useEffect, useReducer, useState } from "react";
 
 export const ACTIONS = {
   UPDATE_FAVORITES: "UPDATE_FAVORITES",
@@ -13,16 +13,22 @@ export const ACTIONS = {
 function reducer(state, action) {
   switch (action.type) {
     case ACTIONS.UPDATE_FAVORITES:
-      const updatedFavorites = state.favorites.includes(action.id)
-        ? state.favorites.filter((photoId) => photoId !== action.id)
-        : [...state.favorites, action.id];
+      const updatedFavorites = state.favorites.includes(action.payload)
+        ? state.favorites.filter((photoId) => photoId !== action.payload)
+        : [...state.favorites, action.payload];
       return { ...state, favorites: updatedFavorites };
 
     case ACTIONS.SELECT_PHOTO:
-      return { ...state, selectedPhoto: action.photo, modal: true };
+      return { ...state, selectedPhoto: action.payload, modal: true };
 
     case ACTIONS.DISPLAY_PHOTO_DETAILS:
       return { ...state, selectedPhoto: null, modal: false };
+
+    case ACTIONS.SET_PHOTO_DATA:
+      return { ...state, photoData: action.payload };
+
+    case ACTIONS.SET_TOPIC_DATA:
+      return { ...state, topicData: action.payload };
 
     default:
       throw new Error(
@@ -36,14 +42,32 @@ export function useApplicationData() {
     modal: false,
     selectedPhoto: null,
     favorites: [],
+    photoData: [],
+    topicData: [],
   });
 
+  useEffect(() => {
+    fetch("http://localhost:8001/api/photos")
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data })
+      );
+  }, []);
+
+  useEffect(() => {
+    fetch("http://localhost:8001/api/topics")
+      .then((res) => res.json())
+      .then((data) =>
+        dispatch({ type: ACTIONS.SET_TOPIC_DATA, payload: data })
+      );
+  }, []);
+
   const updateToFavPhotoIds = (id) => {
-    dispatch({ type: ACTIONS.UPDATE_FAVORITES, id });
+    dispatch({ type: ACTIONS.UPDATE_FAVORITES, payload: id });
   };
 
   const setPhotoSelected = (photo) => {
-    dispatch({ type: ACTIONS.SELECT_PHOTO, photo });
+    dispatch({ type: ACTIONS.SELECT_PHOTO, payload: photo });
   };
 
   const onClosePhotoDetailsModal = () => {
