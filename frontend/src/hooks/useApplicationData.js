@@ -62,6 +62,16 @@ export function useApplicationData() {
       );
   }, []);
 
+  const photosByTopics = (topicId) => {
+    if (topicId) {
+      fetch(`http://localhost:8001/api/topics/photos/${topicId}`)
+        .then((res) => res.json())
+        .then((data) =>
+          dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data })
+        );
+    }
+  };
+
   const updateToFavPhotoIds = (id) => {
     dispatch({ type: ACTIONS.UPDATE_FAVORITES, payload: id });
   };
@@ -106,5 +116,6 @@ export function useApplicationData() {
     updateToFavPhotoIds,
     setPhotoSelected,
     onClosePhotoDetailsModal,
+    photosByTopics,
   };
 }

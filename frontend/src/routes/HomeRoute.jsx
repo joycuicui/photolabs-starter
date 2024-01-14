@@ -10,10 +10,15 @@ const HomeRoute = ({
   favorites,
   onClickFav,
   isFavPhotoExist,
+  onClickTopic,
 }) => {
   return (
     <div className="home-route">
-      <TopNavigation topics={topics} isFavPhotoExist={isFavPhotoExist} />
+      <TopNavigation
+        topics={topics}
+        isFavPhotoExist={isFavPhotoExist}
+        onClickTopic={onClickTopic}
+      />
       <PhotoList
         photos={photos}
         favorites={favorites}
