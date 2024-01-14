@@ -84,33 +84,6 @@ export function useApplicationData() {
     dispatch({ type: ACTIONS.DISPLAY_PHOTO_DETAILS });
   };
 
-  // const [state, setState] = useState({
-  //   modal: false,
-  //   selectedPhoto: null,
-  //   favorites: [],
-  // });
-
-  // const updateToFavPhotoIds = (id) => {
-  //   setState((prev) => {
-  //     const updatedFavorites = prev.favorites.includes(id)
-  //       ? prev.favorites.filter((photoId) => photoId !== id)
-  //       : [...prev.favorites, id];
-  //     return { ...prev, favorites: updatedFavorites };
-  //   });
-  // };
-
-  // const setPhotoSelected = (photo) => {
-  //   setState((prev) => {
-  //     return { ...prev, selectedPhoto: photo, modal: true };
-  //   });
-  // };
-
-  // const onClosePhotoDetailsModal = () => {
-  //   setState((prev) => {
-  //     return { ...prev, selectedPhoto: null, modal: false };
-  //   });
-  // };
-
   return {
     state,
     updateToFavPhotoIds,
