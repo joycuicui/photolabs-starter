@@ -34,7 +34,11 @@ const PhotoDetailsModal = ({
 
       <div className="photo-details-modal__images">
         <div className="photo-details-modal__header">Similar Photos</div>
-        <PhotoList photos={similarPhotos} />
+        <PhotoList
+          photos={similarPhotos}
+          favorites={favorites}
+          onClickFav={onClickFav}
+        />
       </div>
     </div>
   );
