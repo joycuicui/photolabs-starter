@@ -2,12 +2,11 @@ import { useEffect, useReducer, useState } from "react";
 
 export const ACTIONS = {
   UPDATE_FAVORITES: "UPDATE_FAVORITES",
-  FAV_PHOTO_ADDED: "FAV_PHOTO_ADDED",
-  FAV_PHOTO_REMOVED: "FAV_PHOTO_REMOVED",
   SET_PHOTO_DATA: "SET_PHOTO_DATA",
   SET_TOPIC_DATA: "SET_TOPIC_DATA",
   SELECT_PHOTO: "SELECT_PHOTO",
   DISPLAY_PHOTO_DETAILS: "DISPLAY_PHOTO_DETAILS",
+  SELECT_TOPIC: "SELECT_TOPIC",
 };
 
 function reducer(state, action) {
@@ -30,6 +29,9 @@ function reducer(state, action) {
     case ACTIONS.SET_TOPIC_DATA:
       return { ...state, topicData: action.payload };
 
+    case ACTIONS.SELECT_TOPIC:
+      return { ...state, selectedTopic: action.payload };
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -44,6 +46,7 @@ export function useApplicationData() {
     favorites: [],
     photoData: [],
     topicData: [],
+    selectedTopic: null,
   });
 
   useEffect(() => {
@@ -72,6 +75,16 @@ export function useApplicationData() {
     }
   };
 
+  const handleClickTopic = (topicId) => {
+    dispatch({ type: ACTIONS.SELECT_TOPIC, payload: topicId });
+    photosByTopics(topicId);
+  };
+
+  const handleClickLogo = () => {
+    dispatch({ type: ACTIONS.SELECT_TOPIC, payload: null });
+    console.log("logo clicked");
+  };
+
   const updateToFavPhotoIds = (id) => {
     dispatch({ type: ACTIONS.UPDATE_FAVORITES, payload: id });
   };
@@ -89,6 +102,7 @@ export function useApplicationData() {
     updateToFavPhotoIds,
     setPhotoSelected,
     onClosePhotoDetailsModal,
-    photosByTopics,
+    handleClickTopic,
+    handleClickLogo,
   };
 }

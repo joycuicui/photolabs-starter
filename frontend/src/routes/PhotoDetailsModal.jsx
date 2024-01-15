@@ -1,5 +1,4 @@
 import React from "react";
-
 import "../styles/PhotoDetailsModal.scss";
 import closeSymbol from "../assets/closeSymbol.svg";
 import PhotoListItem from "components/PhotoListItem";
@@ -11,7 +10,6 @@ const PhotoDetailsModal = ({
   favorites,
   onClickFav,
 }) => {
-  // selected && console.log(selected);
   const similarPhotos = Object.values(selected.similar_photos);
 
   return (
@@ -22,6 +20,7 @@ const PhotoDetailsModal = ({
       >
         <img src={closeSymbol} alt="close symbol" />
       </button>
+
       <PhotoListItem
         location={selected.location}
         url={selected.urls.full}

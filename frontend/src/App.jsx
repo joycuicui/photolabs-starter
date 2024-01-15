@@ -10,7 +10,7 @@ const App = () => {
     updateToFavPhotoIds,
     setPhotoSelected,
     onClosePhotoDetailsModal,
-    photosByTopics,
+    handleClickTopic,
   } = useApplicationData();
 
   return (
@@ -22,7 +22,7 @@ const App = () => {
         favorites={state.favorites}
         onClickFav={updateToFavPhotoIds}
         isFavPhotoExist={state.favorites?.length > 0}
-        onClickTopic={photosByTopics}
+        onClickTopic={handleClickTopic}
       />
       {state.modal ? (
         <PhotoDetailsModal

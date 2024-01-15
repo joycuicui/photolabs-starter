@@ -1,7 +1,5 @@
 import React from "react";
-
 import "../styles/PhotoList.scss";
-import photos from "mocks/photos";
 import PhotoListItem from "./PhotoListItem";
 
 const PhotoList = ({ photos, favorites, onClickFav, onOpenModal }) => {
