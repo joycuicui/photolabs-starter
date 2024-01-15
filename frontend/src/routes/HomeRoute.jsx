@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React from "react";
 import "../styles/HomeRoute.scss";
 import TopNavigation from "../components/TopNavigationBar";
 import PhotoList from "../components/PhotoList";
@@ -24,7 +24,6 @@ const HomeRoute = ({
         onClickLogo={onClickLogo}
       />
       <PhotoList
-        // photos={photos}
         photos={selectedTopic !== null ? photos : allPhotos}
         favorites={favorites}
         onClickFav={onClickFav}
