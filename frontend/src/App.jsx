@@ -11,18 +11,22 @@ const App = () => {
     setPhotoSelected,
     onClosePhotoDetailsModal,
     handleClickTopic,
+    handleClickLogo,
   } = useApplicationData();
 
   return (
     <div className="App">
       <HomeRoute
         topics={state.topicData}
+        allPhotos={state.allPhotos}
         photos={state.photoData}
         onOpenModal={setPhotoSelected}
         favorites={state.favorites}
         onClickFav={updateToFavPhotoIds}
         isFavPhotoExist={state.favorites?.length > 0}
         onClickTopic={handleClickTopic}
+        onClickLogo={handleClickLogo}
+        selectedTopic={state.selectedTopic}
       />
       {state.modal ? (
         <PhotoDetailsModal

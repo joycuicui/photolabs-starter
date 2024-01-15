@@ -7,6 +7,8 @@ export const ACTIONS = {
   SELECT_PHOTO: "SELECT_PHOTO",
   DISPLAY_PHOTO_DETAILS: "DISPLAY_PHOTO_DETAILS",
   SELECT_TOPIC: "SELECT_TOPIC",
+  SHOW_ALL_PHOTOS: "SHOW_ALL_PHOTOS",
+  SET_ALL_PHOTOS: "SET_ALL_PHOTOS",
 };
 
 function reducer(state, action) {
@@ -32,6 +34,12 @@ function reducer(state, action) {
     case ACTIONS.SELECT_TOPIC:
       return { ...state, selectedTopic: action.payload };
 
+    case ACTIONS.SET_ALL_PHOTOS:
+      return { ...state, allPhotos: action.payload };
+
+    case ACTIONS.SHOW_ALL_PHOTOS:
+      return { ...state, selectedTopic: null };
+
     default:
       throw new Error(
         `Tried to reduce with unsupported action type: ${action.type}`
@@ -47,13 +55,14 @@ export function useApplicationData() {
     photoData: [],
     topicData: [],
     selectedTopic: null,
+    allPhotos: [],
   });
 
   useEffect(() => {
     fetch("http://localhost:8001/api/photos")
       .then((res) => res.json())
       .then((data) =>
-        dispatch({ type: ACTIONS.SET_PHOTO_DATA, payload: data })
+        dispatch({ type: ACTIONS.SET_ALL_PHOTOS, payload: data })
       );
   }, []);
 
@@ -81,8 +90,7 @@ export function useApplicationData() {
   };
 
   const handleClickLogo = () => {
-    dispatch({ type: ACTIONS.SELECT_TOPIC, payload: null });
-    console.log("logo clicked");
+    dispatch({ type: ACTIONS.SHOW_ALL_PHOTOS });
   };
 
   const updateToFavPhotoIds = (id) => {

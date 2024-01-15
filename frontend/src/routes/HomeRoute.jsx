@@ -11,6 +11,9 @@ const HomeRoute = ({
   onClickFav,
   isFavPhotoExist,
   onClickTopic,
+  allPhotos,
+  selectedTopic,
+  onClickLogo,
 }) => {
   return (
     <div className="home-route">
@@ -18,9 +21,11 @@ const HomeRoute = ({
         topics={topics}
         isFavPhotoExist={isFavPhotoExist}
         onClickTopic={onClickTopic}
+        onClickLogo={onClickLogo}
       />
       <PhotoList
-        photos={photos}
+        // photos={photos}
+        photos={selectedTopic !== null ? photos : allPhotos}
         favorites={favorites}
         onClickFav={onClickFav}
         onOpenModal={onOpenModal}
