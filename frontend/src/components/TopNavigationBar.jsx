@@ -29,7 +29,7 @@ const TopNavigation = ({
           className={`mode ${isDarkMode ? "dark" : ""}`}
           onClick={toggleDarkMode}
         >
-          DarkMode
+          {isDarkMode ? "LightMode" : "DarkMode"}
         </button>
         <FavBadge isFavPhotoExist={isFavPhotoExist} />
       </div>
