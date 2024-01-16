@@ -11,10 +11,22 @@ const PhotoListItem = ({
   onClickFav,
   onOpenModal,
   modal,
+  isDarkMode,
 }) => {
   return (
-    <div className={modal ? "photo-details-modal__images" : "photo-list__item"}>
-      <PhotoFavButton id={id} favorites={favorites} onClickFav={onClickFav} />
+    <div
+      className={
+        modal
+          ? `photo-details-modal__images ${isDarkMode ? "dark" : ""}`
+          : `photo-list__item ${isDarkMode ? "dark" : ""}`
+      }
+    >
+      <PhotoFavButton
+        id={id}
+        favorites={favorites}
+        onClickFav={onClickFav}
+        isDarkMode={isDarkMode}
+      />
       <img
         onClick={onOpenModal}
         className={modal ? "photo-details-modal__image" : "photo-list__image"}

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "../styles/HomeRoute.scss";
 import TopNavigation from "../components/TopNavigationBar";
 import PhotoList from "../components/PhotoList";
@@ -14,6 +14,8 @@ const HomeRoute = ({
   allPhotos,
   selectedTopic,
   onClickLogo,
+  isDarkMode,
+  toggleDarkMode,
 }) => {
   return (
     <div className="home-route">
@@ -22,12 +24,15 @@ const HomeRoute = ({
         isFavPhotoExist={isFavPhotoExist}
         onClickTopic={onClickTopic}
         onClickLogo={onClickLogo}
+        toggleDarkMode={toggleDarkMode}
+        isDarkMode={isDarkMode}
       />
       <PhotoList
         photos={selectedTopic !== null ? photos : allPhotos}
         favorites={favorites}
         onClickFav={onClickFav}
         onOpenModal={onOpenModal}
+        isDarkMode={isDarkMode}
       />
     </div>
   );

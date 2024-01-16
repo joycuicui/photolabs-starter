@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./App.scss";
 import HomeRoute from "./routes/HomeRoute";
 import PhotoDetailsModal from "routes/PhotoDetailsModal";
@@ -14,6 +14,16 @@ const App = () => {
     handleClickLogo,
   } = useApplicationData();
 
+  const [isDarkMode, setIsDarkMode] = useState(false);
+
+  useEffect(() => {
+    document.body.classList.toggle("dark", isDarkMode);
+  }, [isDarkMode]);
+
+  const toggleDarkMode = () => {
+    setIsDarkMode((prev) => !prev);
+  };
+
   return (
     <div className="App">
       <HomeRoute
@@ -27,6 +37,8 @@ const App = () => {
         onClickTopic={handleClickTopic}
         onClickLogo={handleClickLogo}
         selectedTopic={state.selectedTopic}
+        isDarkMode={isDarkMode}
+        toggleDarkMode={toggleDarkMode}
       />
       {state.modal ? (
         <PhotoDetailsModal
@@ -34,6 +46,7 @@ const App = () => {
           selected={state.selectedPhoto}
           favorites={state.favorites}
           onClickFav={updateToFavPhotoIds}
+          isDarkMode={isDarkMode}
         />
       ) : null}
     </div>

@@ -8,14 +8,31 @@ const TopNavigation = ({
   isFavPhotoExist,
   onClickTopic,
   onClickLogo,
+  isDarkMode,
+  toggleDarkMode,
 }) => {
   return (
-    <div className="top-nav-bar">
-      <span className="top-nav-bar__logo" onClick={onClickLogo}>
+    <div className={`top-nav-bar ${isDarkMode ? "dark" : ""}`}>
+      <span
+        className={`top-nav-bar__logo ${isDarkMode ? "dark" : ""}`}
+        onClick={onClickLogo}
+      >
         PhotoLabs
       </span>
-      <TopicList topics={topics} onClickTopic={onClickTopic} />
-      <FavBadge isFavPhotoExist={isFavPhotoExist} />
+      <TopicList
+        topics={topics}
+        onClickTopic={onClickTopic}
+        isDarkMode={isDarkMode}
+      />
+      <div className="button-container">
+        <button
+          className={`mode ${isDarkMode ? "dark" : ""}`}
+          onClick={toggleDarkMode}
+        >
+          DarkMode
+        </button>
+        <FavBadge isFavPhotoExist={isFavPhotoExist} />
+      </div>
     </div>
   );
 };

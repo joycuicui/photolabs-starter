@@ -2,7 +2,13 @@ import React from "react";
 import "../styles/PhotoList.scss";
 import PhotoListItem from "./PhotoListItem";
 
-const PhotoList = ({ photos, favorites, onClickFav, onOpenModal }) => {
+const PhotoList = ({
+  photos,
+  favorites,
+  onClickFav,
+  onOpenModal,
+  isDarkMode,
+}) => {
   const mappedPhotos = photos.map((photo) => (
     <PhotoListItem
       key={photo.id}
@@ -13,10 +19,13 @@ const PhotoList = ({ photos, favorites, onClickFav, onOpenModal }) => {
       favorites={favorites}
       onClickFav={onClickFav}
       onOpenModal={() => onOpenModal(photo)}
+      isDarkMode={isDarkMode}
     />
   ));
 
-  return <ul className="photo-list">{mappedPhotos}</ul>;
+  return (
+    <ul className={`photo-list ${isDarkMode ? "dark" : ""}`}>{mappedPhotos}</ul>
+  );
 };
 
 export default PhotoList;
